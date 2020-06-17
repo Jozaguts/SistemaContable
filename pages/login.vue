@@ -81,7 +81,7 @@ export default {
   },
   methods: {
     ...mapMutations({
-      login: 'auth/login'
+      login: 'test/login'
     })
   }
 }
