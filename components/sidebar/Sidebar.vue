@@ -3,14 +3,13 @@
     v-model="Sidebar_drawer"
     :dark="SidebarColor !== 'white'"
     :color="SidebarColor"
-    mobile-break-point="960"
+    mobile-breakpoint="960"
     clipped
     :right="$vuetify.rtl"
     mini-variant-width="70"
     :expand-on-hover="expandOnHover"
     app
     id="main-sidebar"
-   
   >
     <!---USer Area -->
     <v-list-item two-line class="profile-bg">
@@ -88,8 +87,8 @@ export default {
   }),
   computed: {
     ...mapState({
-     SidebarColor: 'root/SidebarColor', 
-     SidebarBg: 'root/SidebarBg',
+      SidebarColor: 'root/SidebarColor',
+      SidebarBg: 'root/SidebarBg'
     }),
     Sidebar_drawer: {
       get() {

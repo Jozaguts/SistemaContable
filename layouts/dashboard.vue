@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <Header v-model="expandOnHover"></Header>
 
-    <v-content>
+    <v-main>
       <v-container fluid class="page-wrapper">
         <router-view />
         <v-btn
@@ -17,7 +17,7 @@
           <v-icon>mdi-cog</v-icon>
         </v-btn>
       </v-container>
-    </v-content>
+    </v-main>
     <Sidebar :expand-on-hover.sync="expandOnHover"></Sidebar>
 
     <Customizer v-model="expandOnHover"></Customizer>
