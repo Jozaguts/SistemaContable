@@ -1,5 +1,5 @@
 export const state = () => ({
-    authenticated: false
+    authenticated: true
 })
 export const mutations = {
     login(state, { email, password }) {
@@ -15,7 +15,7 @@ export const mutations = {
     }
 }
 // export const actions = {
-   
+
 // }
 
 export const getters = {
