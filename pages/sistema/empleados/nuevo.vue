@@ -193,7 +193,7 @@
                      <v-col cols="12" md="6" lg="4">
                        <p>Funciones Basicas</p>
                        <ValidationProvider v-slot="{errors}" name="Funciones basicas" rules="required">
-                         <v-switch  v-model="rrhhInfo.basic_functions" v-for="option in basic_function_options" :key="option.text"  :error-messages="errors" :label="option.text" :value="option.value"></v-switch>
+                         <v-switch  v-model="rrhhInfo.basic_functions" v-for="option in basicFunctionOptions" :key="option.text"  :error-messages="errors" :label="option.text" :value="option.value"></v-switch>
                        </ValidationProvider>
                      </v-col>
                    </v-row>
@@ -201,14 +201,125 @@
                </ValidationObserver>
              </v-stepper-content>
              <v-stepper-content step="3">
-               <ValidationObserver ref="form" v-slot:="valid">
+               <ValidationObserver ref="form-contract" v-slot:="valid">
                  <v-form>
                    <v-row>
-                     <v-col cols="4">
-                       <ValidationProvider v-slot="{errors}" name="Primer Nombre" rules="required">
-                         <v-text-field label="Primer Nombre" :error-messages="errors" v-model="personalInfo.first_name">
+                     <v-col cols="12" md="4" lg="4">
+                       <ValidationProvider v-slot="{errors}" name="Fecha de ingreso" rules="required">
+                         <v-menu
+                           ref="entryDateMenu"
+                           v-model="entryDateMenu"
+                           :close-on-content-click="false"
+                           transition="scale-transition"
+                           offset-y
+                           min-width="290px"
+                         >
+                           <template v-slot:activator="{ on, attrs }">
+                             <v-text-field
+                               v-model="contractInfo.entry_date"
+                               label="Fecha de ingreso"
+                               prepend-icon="mdi-calendar"
+                               readonly
+                               v-bind="attrs"
+                               v-on="on"
+                             ></v-text-field>
+                           </template>
+                           <v-date-picker
+                             ref="picker"
+                             :error-messages="errors"
+                             v-model="contractInfo.entry_date"
+                             :max="new Date().toISOString().substr(0, 10)"
+                             min="1950-01-01"
+                             @change="save($event, 'entryDateMenu')"
+                           ></v-date-picker>
+                         </v-menu>
+                       </ValidationProvider>
+                     </v-col>
+                     <v-col cols="12" md="4" lg="4">
+                       <ValidationProvider v-slot="{errors}" name="Fecha de baja" rules="required">
+                         <v-menu
+                           ref="terminationMenu"
+                           v-model="terminationMenu"
+                           :close-on-content-click="false"
+                           transition="scale-transition"
+                           offset-y
+                           min-width="290px"
+                         >
+                           <template v-slot:activator="{ on, attrs }">
+                             <v-text-field
+                               v-model="contractInfo.termination_date"
+                               label="Fecha de baja"
+                               prepend-icon="mdi-calendar"
+                               readonly
+                               v-bind="attrs"
+                               v-on="on"
+                             ></v-text-field>
+                           </template>
+                           <v-date-picker
+                             ref="picker"
+                             :error-messages="errors"
+                             v-model="contractInfo.termination_date"
+                             :max="new Date().toISOString().substr(0, 10)"
+                             min="1950-01-01"
+                             @change="save($event,'terminationMenu')"
+                           ></v-date-picker>
+                         </v-menu>
+                       </ValidationProvider>
+                     </v-col>
+                     <v-col cols="12" md="4" lg="4">
+                       <ValidationProvider v-slot="{errors}" name="Fecha de reingreso" rules="required">
+                         <v-menu
+                           ref="reentryMenu"
+                           v-model="reentryMenu"
+                           :close-on-content-click="false"
+                           transition="scale-transition"
+                           offset-y
+                           min-width="290px"
+                         >
+                           <template v-slot:activator="{ on, attrs }">
+                             <v-text-field
+                               v-model="contractInfo.re_entry_date"
+                               label="Fecha de reingreso"
+                               prepend-icon="mdi-calendar"
+                               readonly
+                               v-bind="attrs"
+                               v-on="on"
+                             ></v-text-field>
+                           </template>
+                           <v-date-picker
+                             ref="picker"
+                             :error-messages="errors"
+                             v-model="contractInfo.re_entry_date"
+                             :max="new Date().toISOString().substr(0, 10)"
+                             min="1950-01-01"
+                             @change="save($event,'reentryMenu')"
+                           ></v-date-picker>
+                         </v-menu>
+                       </ValidationProvider>
+                     </v-col>
+                     <v-col cols="12" md="4" lg="4">
+                       <ValidationProvider v-slot="{errors}" name="Tipo de empleado" rules="required">
+                         <v-select label="Tipo de empleado" :items="employeeTypeOptions" :error-messages="errors" v-model="contractInfo.employee_type">
 
-                         </v-text-field>
+                         </v-select>
+                       </ValidationProvider>
+                     </v-col>
+                     <v-col cols="12" md="4" lg="4">
+                       <v-file-input label="Vitae" v-model="contractInfo.vitae"></v-file-input>
+                     </v-col>
+                     <v-col cols="12" md="4" lg="4">
+                       <ValidationProvider v-slot="{errors}" name="Puesto" rules="required">
+                         <v-select label="Puesto" :items="contractPositionOptions" :error-messages="errors" v-model="contractInfo.position">
+
+                         </v-select>
+                       </ValidationProvider>
+                     </v-col>
+                     <v-col cols="12" md="4" lg="4">
+                       <p>Estatus</p>
+                       <ValidationProvider v-slot="{errors}" name="Estatus" rules="required">
+                         <div class="d-flex">
+                           <v-switch  v-model="contractInfo.status" v-for="option in statusOptions" :key="option.text"  :error-messages="errors" :label="option.text" :value="option.value"></v-switch>
+                         </div>
                        </ValidationProvider>
                      </v-col>
                    </v-row>
@@ -229,6 +340,9 @@
   layout: 'dashboard',
     components: { ValidationObserver, ValidationProvider },
     data:()=>({
+      entryDateMenu:false,
+      terminationMenu:false,
+      reentryMenu:false,
       steps: 3,
       stepper:1,
       personalInfo:{
@@ -262,14 +376,36 @@
 
 
       },
+      contractInfo:{
+        entry_date:null,
+        termination_date:'',
+        re_entry_date:'',
+        status:'',
+        employee_type:'',
+        vitae:[],
+        position:''
+      },
+      statusOptions:[{text: 'Eventual', value:1},{text: 'Permanente', value:2}],
+      employeeTypeOptions:[{text: 'Opción 1', value:1},{text: 'Opción 2', value:2}],
+      contractPositionOptions:[{text: 'Opción 1', value:1},{text: 'Opción 2', value:2}],
       managementOptions :[{text: 'Opción 1', value:1},{text: 'Opción 1', value:1}],
       departmentOptions :[{text: 'Opción 1', value:1},{text: 'Opción 1', value:1}],
       areaOptions:[{text: 'Opción 1', value:1},{text: 'Opción 1', value:1}],
       positionOptions :[{text: 'Opción 1', value:1},{text: 'Opción 1', value:1}],
       bossOptions :[{text: 'Opción 1', value:1},{text: 'Opción 1', value:1}],
-      basic_function_options :[{text: 'Opción 1', value:1},{text: 'Opción 2', value:2}],
+      basicFunctionOptions :[{text: 'Opción 1', value:1},{text: 'Opción 2', value:2}],
       educationalLevelOptions:[{text: 'Opción 1', value:1},{text: 'Opción 2', value:2},{text: 'Opción 3', value:3}]
-    })
+    }),
+    watch: {
+      menu (val) {
+        val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
+      },
+    },
+    methods: {
+      save (date, ref) {
+        this.$refs[ref].save(date)
+      },
+    },
 }
 </script>
 
