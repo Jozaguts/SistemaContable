@@ -18,7 +18,7 @@
          </v-stepper-header>
            <v-stepper-items>
            <v-stepper-content step="1">
-             <ValidationObserver ref="form" v-slot:="valid">
+             <ValidationObserver ref="form-personal-data" v-slot:="valid">
                <v-form>
                  <v-row>
                    <v-col cols="12" md="6" lg="4">
@@ -65,7 +65,7 @@
                    </v-col>
                    <v-col cols="12" md="6" lg="4">
                      <ValidationProvider v-slot="{errors}" name="Nivel de estudios" rules="required">
-                       <v-select label="Nivel de estudios" :items="educationalLevels" :error-messages="errors" v-model="personalInfo.educational_level">
+                       <v-select label="Nivel de estudios" :items="educationalLevelOptions" :error-messages="errors" v-model="personalInfo.educational_level">
 
                        </v-select>
                      </ValidationProvider>
@@ -110,14 +110,90 @@
              </ValidationObserver>
            </v-stepper-content>
              <v-stepper-content step="2">
-               <ValidationObserver ref="form" v-slot:="valid">
+               <ValidationObserver ref="form-rr-hh-data" v-slot:="valid">
                  <v-form>
                    <v-row>
-                     <v-col cols="4">
-                       <ValidationProvider v-slot="{errors}" name="Primer Nombre" rules="required">
-                         <v-text-field label="Primer Nombre" :error-messages="errors" v-model="personalInfo.first_name">
+                     <v-col cols="12" md="6" lg="4">
+                       <ValidationProvider v-slot="{errors}" name="Gerencial" rules="required">
+                         <v-select label="Gerencial" :items="managementOptions" :error-messages="errors" v-model="rrhhInfo.management">
+
+                         </v-select>
+                       </ValidationProvider>
+                     </v-col>
+                    <v-col cols="12" md="6" lg="4">
+                       <ValidationProvider v-slot="{errors}" name="Departamento" rules="required">
+                         <v-select label="Departamento" :items="departmentOptions" :error-messages="errors" v-model="rrhhInfo.department">
+
+                         </v-select>
+                       </ValidationProvider>
+                     </v-col>
+                    <v-col cols="12" md="6" lg="4">
+                       <ValidationProvider v-slot="{errors}" name="Area" rules="required">
+                         <v-select label="Area" :items="areaOptions" :error-messages="errors" v-model="rrhhInfo.area">
+
+                         </v-select>
+                       </ValidationProvider>
+                     </v-col>
+                    <v-col cols="12" md="6" lg="4">
+                       <ValidationProvider v-slot="{errors}" name="Puesto" rules="required">
+                         <v-select label="Puesto" :items="positionOptions" :error-messages="errors" v-model="rrhhInfo.position">
+
+                         </v-select>
+                       </ValidationProvider>
+                     </v-col>
+                    <v-col cols="12" md="6" lg="4">
+                       <ValidationProvider v-slot="{errors}" name="Jefe" rules="required">
+                         <v-select label="Jefe" :items="bossOptions" :error-messages="errors" v-model="rrhhInfo.boss">
+
+                         </v-select>
+                       </ValidationProvider>
+                     </v-col>
+                     <v-col cols="12" md="6" lg="4">
+                       <ValidationProvider v-slot="{errors}" name="Banco receptor" rules="required">
+                         <v-text-field label="Banco receptor"  hint="Clave" :error-messages="errors" v-model="rrhhInfo.receiving_bank_key">
 
                          </v-text-field>
+                       </ValidationProvider>
+                     </v-col>
+                     <v-col cols="12" md="6" lg="4">
+                       <ValidationProvider v-slot="{errors}" name="Número de nomina" rules="required">
+                         <v-text-field label="Número de nomina"   :error-messages="errors" v-model="rrhhInfo.payroll_number">
+
+                         </v-text-field>
+                       </ValidationProvider>
+                     </v-col>
+                     <v-col cols="12" md="6" lg="4">
+                       <ValidationProvider v-slot="{errors}" name="Plantilla presupuestal" rules="required">
+                         <v-text-field label="Plantilla presupuestal"   :error-messages="errors" v-model="rrhhInfo.template">
+
+                         </v-text-field>
+                       </ValidationProvider>
+                     </v-col>
+                     <v-col cols="12" md="6" lg="4">
+                       <ValidationProvider v-slot="{errors}" name="Cuenta gastos" rules="required">
+                         <v-text-field label="Cuenta gastos"   :error-messages="errors" v-model="rrhhInfo.expense_account">
+
+                         </v-text-field>
+                       </ValidationProvider>
+                     </v-col>
+                     <v-col cols="12" md="6" lg="4">
+                       <ValidationProvider v-slot="{errors}" name="Cuenta pensiones" rules="required">
+                         <v-text-field label="Cuenta pensiones"   :error-messages="errors" v-model="rrhhInfo.pension_account">
+
+                         </v-text-field>
+                       </ValidationProvider>
+                     </v-col>
+                     <v-col cols="12" md="6" lg="4">
+                       <ValidationProvider v-slot="{errors}" name="Cuenta anticipos" rules="required">
+                         <v-text-field label="Cuenta anticipos"   :error-messages="errors" v-model="rrhhInfo.advance_account">
+
+                         </v-text-field>
+                       </ValidationProvider>
+                     </v-col>
+                     <v-col cols="12" md="6" lg="4">
+                       <p>Funciones Basicas</p>
+                       <ValidationProvider v-slot="{errors}" name="Funciones basicas" rules="required">
+                         <v-switch  v-model="rrhhInfo.basic_functions" v-for="option in basic_function_options" :key="option.text"  :error-messages="errors" :label="option.text" :value="option.value"></v-switch>
                        </ValidationProvider>
                      </v-col>
                    </v-row>
@@ -169,7 +245,30 @@
         address:'',
         emergency_number:''
       },
-      educationalLevels:[{text: 'Opción 1', value:1},{text: 'Opción 2', value:2},{text: 'Opción 3', value:3}]
+      rrhhInfo:{
+        management:'',
+        department:'',
+        area:'',
+        position:'',
+        boss:'',
+        receiving_bank_key:'',
+        payroll_number:'',
+        template:'',
+        expense_account:'',
+        pension_account:'',
+        advance_account:'',
+        basic_functions:[]
+
+
+
+      },
+      managementOptions :[{text: 'Opción 1', value:1},{text: 'Opción 1', value:1}],
+      departmentOptions :[{text: 'Opción 1', value:1},{text: 'Opción 1', value:1}],
+      areaOptions:[{text: 'Opción 1', value:1},{text: 'Opción 1', value:1}],
+      positionOptions :[{text: 'Opción 1', value:1},{text: 'Opción 1', value:1}],
+      bossOptions :[{text: 'Opción 1', value:1},{text: 'Opción 1', value:1}],
+      basic_function_options :[{text: 'Opción 1', value:1},{text: 'Opción 2', value:2}],
+      educationalLevelOptions:[{text: 'Opción 1', value:1},{text: 'Opción 2', value:2},{text: 'Opción 3', value:3}]
     })
 }
 </script>

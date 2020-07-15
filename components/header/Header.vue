@@ -3,10 +3,10 @@
     <!---Logo part -->
     <v-toolbar-title class="align-center d-flex">
       <span class="logo-icon">
-        <img src="~assets/images/logo-light-icon.png" />
+        <img src="~assets/images/logo.svg"  width="50"/>
       </span>
       <span class="logo-text ml-2" :class="`${showLogo ? '' : 'hidelogo'}`">
-        <img src="~assets/images/logo-light-text.png" class="mt-2" />
+      Sistema Contable
       </span>
     </v-toolbar-title>
     <!---Logo part -->
