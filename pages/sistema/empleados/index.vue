@@ -1,4 +1,5 @@
 <template>
+  <no-ssr>
   <v-container fluid class="down-top-padding">
     <v-card>
       <v-card-text class="pa-5">
@@ -29,79 +30,78 @@
                 color="primary"
                 dark
                 class="mb-2 text-capitalize"
-                v-on="on"
                 to='/sistema/empleados/nuevo'
               >
                 <v-icon class="mr-2">mdi-account-multiple-plus</v-icon>New Contact
               </v-btn>
-              <!-- <v-dialog v-model="dialog" max-width="700">
-                  <template v-slot:activator="{ on }">
-                    <v-btn color="primary" dark class="mb-2 text-capitalize" v-on="on">
-                      <v-icon class="mr-2">mdi-account-multiple-plus</v-icon>New Contact
-                    </v-btn>
-                  </template>
-                  <v-card>
-                    <v-card-title class="pa-4 info">
-                      <span class="title white--text">{{ formTitle }}</span>
-                    </v-card-title>
+<!--               <v-dialog v-model="dialog" max-width="700">-->
+<!--                  <template v-slot:activator="{ on }">-->
+<!--                    <v-btn color="primary" dark class="mb-2 text-capitalize" v-on="on">-->
+<!--                      <v-icon class="mr-2">mdi-account-multiple-plus</v-icon>New Contact-->
+<!--                    </v-btn>-->
+<!--                  </template>-->
+<!--                  <v-card>-->
+<!--                    <v-card-title class="pa-4 info">-->
+<!--                      <span class="title white&#45;&#45;text">{{ formTitle }}</span>-->
+<!--                    </v-card-title>-->
 
-                    <v-card-text>
-                      <v-container>
-                        <v-row>
-                          <v-col cols="12" sm="6">
-                            <v-text-field outlined hide-details v-model="editedItem.id" label="Id"></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6">
-                            <v-text-field
-                              outlined
-                              hide-details
-                              v-model="editedItem.userinfo"
-                              label="User info"
-                            ></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6">
-                            <v-text-field
-                              outlined
-                              hide-details
-                              v-model="editedItem.usermail"
-                              label="User email"
-                            ></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6">
-                            <v-text-field
-                              outlined
-                              hide-details
-                              v-model="editedItem.phone"
-                              label="Phone"
-                            ></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6">
-                            <v-text-field
-                              outlined
-                              hide-details
-                              v-model="editedItem.jdate"
-                              label="Joining Date"
-                            ></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6">
-                            <v-text-field
-                              outlined
-                              hide-details
-                              v-model="editedItem.role"
-                              label="Role"
-                            ></v-text-field>
-                          </v-col>
-                        </v-row>
-                      </v-container>
-                    </v-card-text>
+<!--                    <v-card-text>-->
+<!--                      <v-container>-->
+<!--                        <v-row>-->
+<!--                          <v-col cols="12" sm="6">-->
+<!--                            <v-text-field outlined hide-details v-model="editedItem.id" label="Id"></v-text-field>-->
+<!--                          </v-col>-->
+<!--                          <v-col cols="12" sm="6">-->
+<!--                            <v-text-field-->
+<!--                              outlined-->
+<!--                              hide-details-->
+<!--                              v-model="editedItem.userinfo"-->
+<!--                              label="User info"-->
+<!--                            ></v-text-field>-->
+<!--                          </v-col>-->
+<!--                          <v-col cols="12" sm="6">-->
+<!--                            <v-text-field-->
+<!--                              outlined-->
+<!--                              hide-details-->
+<!--                              v-model="editedItem.usermail"-->
+<!--                              label="User email"-->
+<!--                            ></v-text-field>-->
+<!--                          </v-col>-->
+<!--                          <v-col cols="12" sm="6">-->
+<!--                            <v-text-field-->
+<!--                              outlined-->
+<!--                              hide-details-->
+<!--                              v-model="editedItem.phone"-->
+<!--                              label="Phone"-->
+<!--                            ></v-text-field>-->
+<!--                          </v-col>-->
+<!--                          <v-col cols="12" sm="6">-->
+<!--                            <v-text-field-->
+<!--                              outlined-->
+<!--                              hide-details-->
+<!--                              v-model="editedItem.jdate"-->
+<!--                              label="Joining Date"-->
+<!--                            ></v-text-field>-->
+<!--                          </v-col>-->
+<!--                          <v-col cols="12" sm="6">-->
+<!--                            <v-text-field-->
+<!--                              outlined-->
+<!--                              hide-details-->
+<!--                              v-model="editedItem.role"-->
+<!--                              label="Role"-->
+<!--                            ></v-text-field>-->
+<!--                          </v-col>-->
+<!--                        </v-row>-->
+<!--                      </v-container>-->
+<!--                    </v-card-text>-->
 
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn color="error" dark @click="close">Cancel</v-btn>
-                      <v-btn color="success" dark @click="save">Save</v-btn>
-                    </v-card-actions>
-                  </v-card>
-              </v-dialog>-->
+<!--                    <v-card-actions>-->
+<!--                      <v-spacer></v-spacer>-->
+<!--                      <v-btn color="error" dark @click="close">Cancel</v-btn>-->
+<!--                      <v-btn color="success" dark @click="save">Save</v-btn>-->
+<!--                    </v-card-actions>-->
+<!--                  </v-card>-->
+<!--              </v-dialog>-->
             </v-toolbar>
           </template>
           <template v-slot:item.id="{item}">
@@ -137,6 +137,7 @@
       </v-card-text>
     </v-card>
   </v-container>
+  </no-ssr>
 </template>
 
 
